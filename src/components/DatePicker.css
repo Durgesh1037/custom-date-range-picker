@@ -1,0 +1,62 @@
+.main{
+    display: flex;
+    position: relative;
+}
+.date-picker{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(242, 244, 244);
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid rgb(7, 131, 203);
+    cursor: pointer;
+    position: relative;
+}
+
+.calender{
+    cursor: pointer;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 2px;
+}
+.calender:hover{
+    background-color: rgb(171, 160, 160);
+}
+
+.footer{
+   border-top: 1px;
+   display: "flex";
+   justify-items: "center";
+   justify-content: "space-between" 
+}
+
+.date-picker:hover{
+    background-color: rgb(211, 231, 231);
+}
+
+.date-days{
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: #3498ff;
+    color:white;
+    border-radius: 5px;
+
+}
+
+.date-days:hover{
+    background-color: aqua;
+}
+
+.select-month{
+    /* padding: 5px; */
+    margin: 5px;
+    cursor: pointer;
+    /* background-color: rgb(6, 185, 173); */
+}
+
+.select-month:hover{
+    background-color: aqua;
+}
