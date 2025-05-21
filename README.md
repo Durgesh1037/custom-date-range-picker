@@ -1,7 +1,14 @@
 # React + TypeScript + Vite
 
 
-# This is a task to desing custom date range picker without using any predefine npm and components library like, react-datepicker,rsuite date range ,mui and antdesding date picker
+# This is a task to desing custom date range picker without using any predefine npm and components library like, react-datepicker,rsuite date range ,mui and antdesding date picker.
+
+# Instructions to run Application on browser
+1. git clone the repo https://github.com/Durgesh1037/custom-date-range-picker.git
+2. open terminal and install dependencies via npm install
+3. run command npm run dev
+4. App run on port :- http://localhost:5173/
+
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
