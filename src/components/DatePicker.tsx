@@ -17,6 +17,7 @@ const DateRangePicker = (props: PropsType) => {
     const [isRightOuterCalendar, setIsRightOuterCalendar] = useState(false);
     const [isHandleOk, setIsHandleOk] = useState(false);
     const [selectedRange, setSelectedRange] = useState<string[]>([]);
+    const [selectedWeekendDays, setSelectedWeekendDays] = useState<string[]>([]);
     const daysInMonth = (month: number, year: number) => new Date(year, month + 1, 0).getDate();
     const getFirstDayOfMonth = (month: number, year: number) => new Date(year, month, 1).getDay();
     let weekends: number = 0;
@@ -37,8 +38,10 @@ const DateRangePicker = (props: PropsType) => {
             days.push('');
         }
         for (let i = 1; i <= totalDays; i++) {
+
             days.push(i);
         }
+
         return days;
     };
 
@@ -72,6 +75,7 @@ const DateRangePicker = (props: PropsType) => {
         if (!day) return;
         const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
 
+
         if (!startDate) {
             setStartDate(date);
         } else if (!endDate) {
@@ -85,7 +89,15 @@ const DateRangePicker = (props: PropsType) => {
             setStartDate(date);
             setEndDate(null);
         }
+
+
+
+
     };
+
+
+    console.log("selctedWeekendsDays", selectedWeekendDays);
+
 
     const handleDateClickNextMonth = (day: any) => {
         if (!day) return;
@@ -118,6 +130,24 @@ const DateRangePicker = (props: PropsType) => {
     };
 
     const handleDateRange = () => {
+
+        const startDateData = new Date(startDate);
+        console.log("startDateData", startDateData);
+        const weekends: string[] = [];
+
+        while (startDateData < endDate) {
+            const dayOfWeek = startDateData.getDay();
+            if (dayOfWeek == 0 || dayOfWeek == 6) {
+                const day = startDateData.getDate();
+                const month = startDateData.getMonth() + 1;
+                const year = startDateData.getFullYear();
+                const formattedDate = `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${year}`;
+                weekends.push(formattedDate);
+            }
+            startDateData.setDate(startDateData.getDate() + 1);
+        }
+        setSelectedWeekendDays(weekends);
+
         if (startDate && endDate) {
             setSelectedRange([
                 startDate
@@ -129,6 +159,8 @@ const DateRangePicker = (props: PropsType) => {
             ]);
             alert(`Selected date range: ${startDate.getDate().toString().padStart(2, '0')}-${(startDate.getMonth() + 1).toString().padStart(2, '0')}-${startDate.getFullYear()} - ${endDate.getDate().toString().padStart(2, '0')}-${(endDate.getMonth() + 1).toString().padStart(2, '0')}-${endDate.getFullYear()}`);
         }
+
+
     }
 
     const handleLastDays = (days: number) => {
@@ -172,6 +204,7 @@ const DateRangePicker = (props: PropsType) => {
     const isDateSelected = (day: any) => {
         if (!day) return false;
         const date = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+
         return (
             (startDate && date.toDateString() === startDate.toDateString()) ||
             (endDate && date.toDateString() === endDate.toDateString()) ||
@@ -262,13 +295,13 @@ const DateRangePicker = (props: PropsType) => {
                             {weekDays?.map((day) => (
                                 <div key={day}>{day}</div>
                             ))}
-                            {generateDays().map((day, index) => (
+                            {generateDays().map((day:any, index) => (
                                 <div
                                     key={index}
                                     onClick={(day == weekends || day == weekends + 7 || day == weekends + 14 || day == weekends + 21 || day == weekends + 28 || day == weekends - 1 || day == weekends + 7 - 1 || day == weekends + 14 - 1 || day == weekends + 21 - 1 || day == weekends + 28 - 1) ? () => console.log("") : () => handleDateClick(day)}
 
                                     style={{
-                                        backgroundColor: isDateSelected(day) ? '#3498ff' : 'transparent',
+                                        backgroundColor: isDateSelected(day) ? '#3498ff' : new Date().toLocaleDateString()==new Date(currentMonth.getFullYear(),currentMonth.getMonth(),day).toLocaleDateString()?'#6aa2dc':'transparent',border: new Date().toLocaleDateString()==new Date(currentMonth.getFullYear(),currentMonth.getMonth(),day).toLocaleDateString()?'1px solid blue':'none',
                                         cursor: (day == weekends || day == weekends + 7 || day == weekends + 14 || day == weekends + 21 || day == weekends + 28 || day == weekends - 1 || day == weekends + 7 - 1 || day == weekends + 14 - 1 || day == weekends + 21 - 1 || day == weekends + 28 - 1) ? 'not-allowed' : "pointer",
                                     }}
                                 >
